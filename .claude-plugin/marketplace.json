@@ -1,0 +1,15 @@
+{
+  "name": "trazabilidad-agil-cord",
+  "owner": {
+    "name": "Ricardo Piña",
+    "email": "cncencia8@gmail.com"
+  },
+  "description": "Plan-to-commit traceability for Claude Code. / Trazabilidad de plan a commit para Claude Code.",
+  "plugins": [
+    {
+      "name": "trazabilidad-agil",
+      "source": "./plugins/trazabilidad-agil",
+      "description": "Every commit tied to the plan task that motivated it. / Cada commit ligado a la tarea del plan que lo motivó."
+    }
+  ]
+}

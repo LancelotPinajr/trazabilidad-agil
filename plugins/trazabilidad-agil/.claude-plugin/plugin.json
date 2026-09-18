@@ -1,0 +1,19 @@
+{
+  "name": "trazabilidad-agil",
+  "version": "0.1.0",
+  "description": "Every commit tied to the plan task that motivated it: commit and migration checks, 'main changed' notice, /start-session, /trazabilidad, /end-session and a local report with charts. / Cada commit ligado a la tarea del plan que lo motivó.",
+  "author": {
+    "name": "Ricardo Piña",
+    "email": "cncencia8@gmail.com"
+  },
+  "homepage": "https://github.com/LancelotPinajr/trazabilidad-agil-cord",
+  "repository": "https://github.com/LancelotPinajr/trazabilidad-agil-cord",
+  "license": "MIT",
+  "keywords": [
+    "traceability",
+    "trazabilidad",
+    "agile",
+    "commits",
+    "plans"
+  ]
+}

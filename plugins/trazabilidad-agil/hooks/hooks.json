@@ -1,0 +1,26 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python \"${CLAUDE_PLUGIN_ROOT}/hooks/run.py\" session 2>/dev/null || python3 \"${CLAUDE_PLUGIN_ROOT}/hooks/run.py\" session",
+            "timeout": 20
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python \"${CLAUDE_PLUGIN_ROOT}/hooks/run.py\" watch 2>/dev/null || python3 \"${CLAUDE_PLUGIN_ROOT}/hooks/run.py\" watch",
+            "timeout": 15
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "trazabilidad-agil-cord"
+version = "0.1.0"
+description = "Every commit tied to the plan task that motivated it. Checks for git hooks and CI, plus a Claude Code plugin."
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.11"
+dependencies = []
+
+[project.urls]
+Repository = "https://github.com/LancelotPinajr/trazabilidad-agil-cord"
+
+[project.scripts]
+trazabilidad = "trazabilidad.cli:main"
+
+# The package lives inside the plugin so the Claude Code hook can run it
+# without installing anything.
+[tool.setuptools]
+package-dir = { "" = "plugins/trazabilidad-agil" }
+packages = ["trazabilidad"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["plugins/trazabilidad-agil"]

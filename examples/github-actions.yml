@@ -1,0 +1,31 @@
+# Copy to .github/workflows/trazabilidad.yml in your repository.
+# Copia a .github/workflows/trazabilidad.yml en tu repositorio.
+name: Trazabilidad
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  trazabilidad:
+    name: Traceability (commits + migrations)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # every commit of the PR, not just the last one
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      # Pin a version you have read. / Fija una versión que hayas leído.
+      - run: pip install "git+https://github.com/LancelotPinajr/trazabilidad-agil-cord@v0.1.0"
+
+      - name: Every commit cites a plan task
+        run: python -m trazabilidad check-commits --range "origin/${{ github.base_ref }}..HEAD"
+
+      # The PR runs on its merge with the base branch: two branches that create
+      # the same migration number clash here, not in production.
+      - name: Migrations don't clash
+        run: python -m trazabilidad check-migrations --base "origin/${{ github.base_ref }}"
