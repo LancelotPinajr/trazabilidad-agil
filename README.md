@@ -25,9 +25,9 @@ feat(auth): lock the account after 5 failed attempts (01/2.3)
 | **Migration check** | Fails when two branches create the same migration number, or when a pull request edits or renames a migration that already reached the main branch. |
 | **Session notice** (Claude Code) | When a session opens: your branch, how far behind the main branch, uncommitted changes, and whether the hook is active. Flags working on the main branch. |
 | **"main changed" notice** (Claude Code) | At session start and before each prompt: if `origin/main` moved since the last notice, you (and Claude) get "🔔 `main` changed: 3 new commits" with their subjects. It fetches at most every 10 minutes, never asks for a password, and stays quiet with no network. |
-| **`/start-session 01/2.3`** (Claude Code) | Checks the branch, reads the task and its acceptance criterion from the plan, marks it in progress and pins the id for the session's commits. |
-| **`/trazabilidad`** (Claude Code) | Mid-session, when there's work that no task covers: it reads the conversation (and your uncommitted diff), finds the tasks that already cover it, and proposes new rows (next free id, title, checkable acceptance criterion, status) or a new plan. **It writes only after you say yes**, commits just the plan, and gives you the ids to cite. |
-| **`/end-session`** (Claude Code) | Checks ids, migrations and tests, and records each task's status in its plan. A task is done only when its criterion was verified: **a commit does not close a task**. |
+| **`/trazabilidad:start-session 01/2.3`** (Claude Code) | Checks the branch, reads the task and its acceptance criterion from the plan, marks it in progress and pins the id for the session's commits. |
+| **`/trazabilidad:add-to-plan`** (Claude Code) | Mid-session, when there's work that no task covers: it reads the conversation (and your uncommitted diff), finds the tasks that already cover it, and proposes new rows (next free id, title, checkable acceptance criterion, status) or a new plan. **It writes only after you say yes**, commits just the plan, and gives you the ids to cite. |
+| **`/trazabilidad:end-session`** (Claude Code) | Checks ids, migrations and tests, and records each task's status in its plan. A task is done only when its criterion was verified: **a commit does not close a task**. |
 
 ## The report
 
@@ -83,26 +83,34 @@ Commits made before the commit that adds `.trazabilidad.toml` are never
 checked: the convention applies from the moment you adopt it.
 
 **2. CI** — copy [`examples/github-actions.yml`](examples/github-actions.yml)
-into `.github/workflows/`. Pin a version with `@v0.1.0` (or a commit sha).
+into `.github/workflows/`. Pin a version with `@v0.1.1` (or a commit sha).
 
 **3. The Claude Code plugin** — in Claude Code:
 
 ```
 /plugin marketplace add LancelotPinajr/trazabilidad-agil-cord
-/plugin install trazabilidad-agil@trazabilidad-agil-cord
+/plugin install trazabilidad@trazabilidad-agil-cord
 ```
 
-Or, so everyone who opens the repository gets it, in the repository's
-`.claude/settings.json`:
+Or in one command (Claude Code v2.1.275+):
+`/plugin install trazabilidad --marketplace LancelotPinajr/trazabilidad-agil-cord`.
+
+Plugin commands carry the plugin's name: **`/trazabilidad:start-session`,
+`/trazabilidad:add-to-plan`, `/trazabilidad:end-session`**. You can also just
+ask ("add this to the plan") and Claude uses the right one.
+
+For a team, declare it in the repository's `.claude/settings.json`. Claude Code
+then adds the marketplace when someone trusts the folder, and shows each person
+the install command once (a plugin from GitHub is never installed without them):
 
 ```json
 {
   "extraKnownMarketplaces": {
     "trazabilidad-agil-cord": {
-      "source": { "source": "github", "repo": "LancelotPinajr/trazabilidad-agil-cord", "ref": "v0.1.0" }
+      "source": { "source": "github", "repo": "LancelotPinajr/trazabilidad-agil-cord", "ref": "v0.1.1" }
     }
   },
-  "enabledPlugins": { "trazabilidad-agil@trazabilidad-agil-cord": true }
+  "enabledPlugins": { "trazabilidad@trazabilidad-agil-cord": true }
 }
 ```
 
@@ -123,7 +131,7 @@ the team.
 
 Onboarding a teammate: give them access to the repository, then they clone it,
 `pip install` the package, run `git config core.hooksPath .githooks` and open
-the repository in Claude Code (it offers the plugin).
+the repository in Claude Code, which shows the plugin's install command the first time.
 
 To avoid stepping on each other: one branch per person, merge the main branch
 into yours often, and move only the status of your own tasks in a plan (a

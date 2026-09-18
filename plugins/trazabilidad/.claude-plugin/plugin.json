@@ -1,0 +1,22 @@
+{
+  "name": "trazabilidad",
+  "version": "0.1.1",
+  "description": "Tie every commit to the plan task that motivated it. Branch and \"main changed\" notices, /trazabilidad:start-session, :add-to-plan and :end-session, plus git-hook and CI checks and a local report with charts. English & Spanish.",
+  "author": {
+    "name": "Ricardo Piña",
+    "email": "cncencia8@gmail.com"
+  },
+  "homepage": "https://github.com/LancelotPinajr/trazabilidad-agil-cord",
+  "repository": "https://github.com/LancelotPinajr/trazabilidad-agil-cord",
+  "license": "MIT",
+  "keywords": [
+    "traceability",
+    "trazabilidad",
+    "agile",
+    "planning",
+    "commits",
+    "git-hooks",
+    "ci",
+    "spanish"
+  ]
+}

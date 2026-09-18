@@ -9,7 +9,7 @@ import sys
 
 import pytest
 
-PLUGIN = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "plugins", "trazabilidad-agil")
+PLUGIN = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "plugins", "trazabilidad")
 
 
 def run(repo, *args, check=True):

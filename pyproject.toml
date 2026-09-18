@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "trazabilidad-agil-cord"
-version = "0.1.0"
+version = "0.1.1"
 description = "Every commit tied to the plan task that motivated it. Checks for git hooks and CI, plus a Claude Code plugin."
 readme = "README.md"
 license = { text = "MIT" }
@@ -20,9 +20,9 @@ trazabilidad = "trazabilidad.cli:main"
 # The package lives inside the plugin so the Claude Code hook can run it
 # without installing anything.
 [tool.setuptools]
-package-dir = { "" = "plugins/trazabilidad-agil" }
+package-dir = { "" = "plugins/trazabilidad" }
 packages = ["trazabilidad"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-pythonpath = ["plugins/trazabilidad-agil"]
+pythonpath = ["plugins/trazabilidad"]

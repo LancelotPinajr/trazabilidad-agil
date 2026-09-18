@@ -7,9 +7,22 @@
   "description": "Plan-to-commit traceability for Claude Code. / Trazabilidad de plan a commit para Claude Code.",
   "plugins": [
     {
-      "name": "trazabilidad-agil",
-      "source": "./plugins/trazabilidad-agil",
-      "description": "Every commit tied to the plan task that motivated it. / Cada commit ligado a la tarea del plan que lo motivó."
+      "name": "trazabilidad",
+      "source": "./plugins/trazabilidad",
+      "description": "Tie every commit to the plan task that motivated it. Branch and \"main changed\" notices, /trazabilidad:start-session, :add-to-plan and :end-session, plus git-hook and CI checks and a local report with charts. English & Spanish.",
+      "version": "0.1.1",
+      "category": "development",
+      "homepage": "https://github.com/LancelotPinajr/trazabilidad-agil-cord",
+      "keywords": [
+        "traceability",
+        "trazabilidad",
+        "agile",
+        "planning",
+        "commits",
+        "git-hooks",
+        "ci",
+        "spanish"
+      ]
     }
   ]
 }

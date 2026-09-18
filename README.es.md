@@ -25,9 +25,9 @@ feat(auth): bloquear la cuenta tras 5 intentos fallidos (01/2.3)
 | **Chequeo de migraciones** | Falla si dos ramas crean el mismo número de migración, o si un PR edita o renombra una migración que ya llegó a la rama principal. |
 | **Aviso de sesión** (Claude Code) | Al abrir una sesión: tu rama, cuánto vas detrás de la rama principal, cambios sin commit y si el hook está activo. Avisa si trabajas en la rama principal. |
 | **Aviso «cambió main»** (Claude Code) | Al abrir la sesión y antes de cada mensaje: si `origin/main` avanzó desde el último aviso, tú (y Claude) ven «🔔 Cambió `main`: 3 commits nuevos» con sus asuntos. Hace `fetch` como mucho cada 10 minutos, nunca pide contraseña y se calla si no hay red. |
-| **`/start-session 01/2.3`** (Claude Code) | Revisa la rama, lee la tarea y su criterio de aceptación en el plan, la marca en curso y fija el id para los commits de la sesión. |
-| **`/trazabilidad`** (Claude Code) | A media sesión, cuando hay trabajo que ninguna tarea cubre: lee la conversación (y tus cambios sin commit), encuentra las tareas que ya lo cubren y propone filas nuevas (siguiente id libre, título, criterio de aceptación verificable, estado) o un plan nuevo. **Solo escribe después de tu sí**, hace commit solo del plan y te da los ids para citar. |
-| **`/end-session`** (Claude Code) | Revisa ids, migraciones y pruebas, y deja el estado de cada tarea en su plan. Una tarea se da por hecha solo si su criterio se verificó: **un commit no cierra una tarea**. |
+| **`/trazabilidad:start-session 01/2.3`** (Claude Code) | Revisa la rama, lee la tarea y su criterio de aceptación en el plan, la marca en curso y fija el id para los commits de la sesión. |
+| **`/trazabilidad:add-to-plan`** (Claude Code) | A media sesión, cuando hay trabajo que ninguna tarea cubre: lee la conversación (y tus cambios sin commit), encuentra las tareas que ya lo cubren y propone filas nuevas (siguiente id libre, título, criterio de aceptación verificable, estado) o un plan nuevo. **Solo escribe después de tu sí**, hace commit solo del plan y te da los ids para citar. |
+| **`/trazabilidad:end-session`** (Claude Code) | Revisa ids, migraciones y pruebas, y deja el estado de cada tarea en su plan. Una tarea se da por hecha solo si su criterio se verificó: **un commit no cierra una tarea**. |
 
 Los comandos tienen nombre en inglés, pero Claude responde en el idioma en que
 le escribas, y los mensajes de los chequeos salen en español con
@@ -88,26 +88,35 @@ Los commits anteriores al que agrega `.trazabilidad.toml` nunca se revisan: la
 convención aplica desde que la adoptas.
 
 **2. CI** — copia [`examples/github-actions.yml`](examples/github-actions.yml) a
-`.github/workflows/`. Fija una versión con `@v0.1.0` (o un sha).
+`.github/workflows/`. Fija una versión con `@v0.1.1` (o un sha).
 
 **3. El plugin de Claude Code** — en Claude Code:
 
 ```
 /plugin marketplace add LancelotPinajr/trazabilidad-agil-cord
-/plugin install trazabilidad-agil@trazabilidad-agil-cord
+/plugin install trazabilidad@trazabilidad-agil-cord
 ```
 
-O, para que lo reciba cualquiera que abra el repositorio, en su
-`.claude/settings.json`:
+O en un solo comando (Claude Code v2.1.275 o posterior):
+`/plugin install trazabilidad --marketplace LancelotPinajr/trazabilidad-agil-cord`.
+
+Los comandos del plugin llevan su nombre: **`/trazabilidad:start-session`,
+`/trazabilidad:add-to-plan`, `/trazabilidad:end-session`**. También basta con
+pedirlo («agrega esto al plan») y Claude usa el que corresponde.
+
+Para un equipo, decláralo en el `.claude/settings.json` del repositorio. Claude
+Code agrega el marketplace cuando alguien confía en la carpeta y le muestra a
+cada persona el comando de instalación una vez (un plugin de GitHub nunca se
+instala sin ella):
 
 ```json
 {
   "extraKnownMarketplaces": {
     "trazabilidad-agil-cord": {
-      "source": { "source": "github", "repo": "LancelotPinajr/trazabilidad-agil-cord", "ref": "v0.1.0" }
+      "source": { "source": "github", "repo": "LancelotPinajr/trazabilidad-agil-cord", "ref": "v0.1.1" }
     }
   },
-  "enabledPlugins": { "trazabilidad-agil@trazabilidad-agil-cord": true }
+  "enabledPlugins": { "trazabilidad@trazabilidad-agil-cord": true }
 }
 ```
 
@@ -127,7 +136,7 @@ repositorio git compartido**: quien tiene acceso a él en GitHub está en el equ
 
 Para sumar a alguien: dale acceso al repositorio; esa persona lo clona, instala
 el paquete con `pip install`, corre `git config core.hooksPath .githooks` y abre
-el repositorio en Claude Code (le ofrece el plugin).
+el repositorio en Claude Code, que la primera vez le muestra el comando para instalar el plugin.
 
 Para no pisarse: una rama por persona, traer la rama principal a la tuya
 seguido, y mover en el plan solo el estado de tus tareas (un commit

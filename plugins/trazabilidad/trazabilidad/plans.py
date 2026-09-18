@@ -1,7 +1,7 @@
 """
 `python -m trazabilidad plans`: the plans, their epics and the next free ids, as JSON.
 
-It is what `/trazabilidad` reads before proposing new rows, so the ids come
+It is what `/trazabilidad:add-to-plan` reads before proposing new rows, so the ids come
 from the files and are never guessed: the next task of an epic, the next epic
 of a plan, and the next plan number.
 """

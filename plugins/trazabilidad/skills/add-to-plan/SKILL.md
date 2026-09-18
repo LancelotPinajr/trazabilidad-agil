@@ -1,6 +1,6 @@
 ---
-name: trazabilidad
-description: Turn what was decided or built in this conversation into tasks of a plan, so the work can be committed with a task id. Use when the person types /trazabilidad, asks to "add this to a plan", or has work to commit that no task covers. / Convierte lo decidido o programado en la conversación en tareas de un plan, para poder hacer commit con su id.
+name: add-to-plan
+description: Turn what was decided or built in this conversation into tasks of a plan, so the work can be committed with a task id. Use when the person types /trazabilidad:add-to-plan, asks to "add this to a plan" / «agrega esto al plan», or has work to commit that no task covers. / Convierte lo decidido o programado en la conversación en tareas de un plan, para poder hacer commit con su id.
 argument-hint: "[plan, e.g. 01 or 01-login] [what to add; defaults to the conversation]"
 ---
 
@@ -34,7 +34,7 @@ dead ends and anything the person discarded.
 For each unit, look for an existing task that already covers it (same
 intent, even if worded differently). If there is one, **don't add a row**:
 report its id (`cite_as/id`) for the commits, and whether its status should
-move (that's the person's call; see `/end-session`).
+move (that's the person's call; see `/trazabilidad:end-session`).
 
 ## 4. Propose
 

@@ -20,7 +20,7 @@ jobs:
           python-version: "3.11"
 
       # Pin a version you have read. / Fija una versión que hayas leído.
-      - run: pip install "git+https://github.com/LancelotPinajr/trazabilidad-agil-cord@v0.1.0"
+      - run: pip install "git+https://github.com/LancelotPinajr/trazabilidad-agil-cord@v0.1.1"
 
       - name: Every commit cites a plan task
         run: python -m trazabilidad check-commits --range "origin/${{ github.base_ref }}..HEAD"

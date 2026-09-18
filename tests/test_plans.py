@@ -1,5 +1,5 @@
 """
-`plans`: the next free ids that /trazabilidad uses to propose rows.
+`plans`: the next free ids that /trazabilidad:add-to-plan uses to propose rows.
 """
 import json
 import os
@@ -10,7 +10,7 @@ from trazabilidad.config import Config
 from trazabilidad.plans import _next_task, describe
 
 HEAD = "| # | Task | Criterion | Status |\n|---|---|---|---|\n"
-PLUGIN = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "plugins", "trazabilidad-agil")
+PLUGIN = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "plugins", "trazabilidad")
 
 
 def test_next_task():

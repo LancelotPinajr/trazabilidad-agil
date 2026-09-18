@@ -1,6 +1,6 @@
 ---
 name: start-session
-description: Start a work session on a task from the repo's plans (e.g. "/start-session 12/2.3"). Use when the person says which plan task they will work on. / Abre una sesión sobre una tarea del plan («/start-session 12/2.3»); úsala cuando la persona diga qué tarea va a trabajar.
+description: Start a work session on a task from the repo's plans (e.g. "/trazabilidad:start-session 12/2.3"). Use when the person says which plan task they will work on. / Abre una sesión sobre una tarea del plan («/trazabilidad:start-session 12/2.3»); úsala cuando la persona diga qué tarea va a trabajar.
 argument-hint: "<plan>/<task>, e.g. 12/2.3"
 ---
 
