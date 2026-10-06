@@ -1,0 +1,20 @@
+# Demo repository for trazabilidad-agil-cord.
+language = "en"            # "en" or "es"
+main_branch = "main"
+
+[plans]
+dir = "docs/plans"
+file_pattern = '^(\d+)-plan-([a-z0-9-]+)\.md$'
+task_id_pattern = '\d+\.\d+[a-z]?'
+
+[commits]
+exempt_prefixes = ["Merge ", 'Revert "', "fixup! ", "squash! ", "amend! "]
+docs_only_plans_exempt = true
+
+[migrations]
+dirs = ["db/migrations"]
+pattern = '^(\d+)_.+\.sql$'
+
+[watch]
+fetch = true
+every_minutes = 10

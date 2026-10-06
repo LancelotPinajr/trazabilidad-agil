@@ -17,6 +17,37 @@ feat(auth): bloquear la cuenta tras 5 intentos fallidos (01/2.3)
 > con tu git, tu cuenta de Claude y tus llaves. Los issues están cerrados; si
 > necesitas algo distinto, haz un fork.
 
+## Pruébalo en 2 minutos
+
+[`examples/demo`](examples/demo) es un repositorio mínimo —un plan, una
+migración, una configuración— para probar los chequeos sin tocar tu trabajo.
+Copia esa carpeta a otro lado y:
+
+```bash
+git init
+pip install git+https://github.com/LancelotPinajr/trazabilidad-agil-cord
+python -m trazabilidad init --lang es
+git add .
+git commit -m "feat(auth): formulario de login"          # ❌ rechazado: no cita tarea
+git commit -m "feat(auth): formulario de login (01/9.9)" # ❌ rechazado: el plan 01 no tiene la tarea 9.9
+git commit -m "feat(auth): formulario de login (01/1.1)" # ✅ pasa
+```
+
+Esa es toda la idea. [El README del demo](examples/demo/README.md) sigue con el
+chequeo de migraciones y el reporte.
+
+## ¿Es para ti?
+
+**Le sirve** a un equipo que ya escribe lo que va a construir, trabaja en
+sesiones con Claude Code y quiere el rastro de cada tarea al código que la
+entregó, con el reporte que sale de ahí sin esfuerzo extra.
+
+**No le sirve** a un equipo que no mantiene planes escritos: los chequeos van a
+rechazar cada commit y se van a sentir una caseta de cobro. Tampoco es un
+tablero: no hay nada que arrastrar, ni sprints, ni estimaciones, ni cifras por
+persona (eso último, a propósito). Ni es un gestor de bugs: un plan es lo que
+decidiste construir, no lo que se rompió.
+
 ## Qué trae
 
 | Pieza | Qué hace |

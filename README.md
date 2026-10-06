@@ -17,6 +17,37 @@ feat(auth): lock the account after 5 failed attempts (01/2.3)
 > with your own git, your own Claude account and your own keys. Issues are
 > closed; if you need something different, fork it.
 
+## Try it in 2 minutes
+
+[`examples/demo`](examples/demo) is a tiny repository — one plan, one migration,
+a config — to try the checks without touching your own work. Copy that folder
+somewhere else, then:
+
+```bash
+git init
+pip install git+https://github.com/LancelotPinajr/trazabilidad-agil-cord
+python -m trazabilidad init
+git add .
+git commit -m "feat(auth): sign-in form"          # ❌ rejected: it cites no task
+git commit -m "feat(auth): sign-in form (01/9.9)" # ❌ rejected: plan 01 has no task 9.9
+git commit -m "feat(auth): sign-in form (01/1.1)" # ✅ passes
+```
+
+That is the whole idea. [The demo's README](examples/demo/README.md) continues
+with the migration check and the report.
+
+## Is this for you?
+
+**It fits** a team that already writes down what it is going to build, works in
+sessions with Claude Code, and wants the trail from a task to the code that
+delivered it — and the report that comes out of it for free.
+
+**It doesn't fit** if your team doesn't keep written plans: the checks will
+block every commit and feel like a toll booth. It is also not a board: there is
+nothing to drag, no sprint, no estimates, no figures per person (on purpose).
+And it is not a bug tracker — a plan is what you decided to build, not what
+broke.
+
 ## What you get
 
 | Piece | What it does |
