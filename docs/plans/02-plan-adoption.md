@@ -31,6 +31,7 @@ Cite these tasks as `02/1.2`, `02/2.1`…
 | 2.1 | The notice insists | When the hook is missing, the session notice gives the one command to fix it, and keeps saying so until it is active | ⬜ |
 | 2.2 | CI says what to run locally | When CI rejects commits, its message names the command that would have caught it on the machine | ⬜ |
 | 2.3 | `init` is safe to re-run | Running it in a configured repo reports what is already in place and changes nothing | ⬜ |
+| 2.4 | `init` leaves nothing staged | It stages the files it writes, so the first `docs(plan)` commit carries them too and loses its exemption — the hook then rejects a commit that should pass. It hit twice: in the repo this came from and here. Either leave them unstaged or say so in the output | ⬜ |
 
 ## Epic 3 — This repository uses itself
 
