@@ -1,0 +1,10 @@
+#!/bin/sh
+# Rejects a commit that does not cite a plan task (trazabilidad-agil-cord).
+# CI checks the same thing, so --no-verify only postpones the rejection.
+for py in python python3; do
+    if "$py" -c "import trazabilidad" >/dev/null 2>&1; then
+        exec "$py" -m trazabilidad check-commits --message "$1"
+    fi
+done
+echo "commit-msg: trazabilidad is not installed (pip install git+https://github.com/LancelotPinajr/trazabilidad-agil-cord); CI will check the task id." >&2
+exit 0

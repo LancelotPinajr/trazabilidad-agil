@@ -1,0 +1,23 @@
+# Trazabilidad Agil Cord — https://github.com/LancelotPinajr/trazabilidad-agil-cord
+language = "en"            # "en" or "es"
+main_branch = "main"
+
+[plans]
+# Plan documents: one Markdown file per plan, with task tables whose first
+# column is the task id:  | 2.3 | Task | Acceptance criterion | Status |
+dir = "docs/plans"
+file_pattern = '^(\d+)-plan-([a-z0-9-]+)\.md$'   # group 1: number, group 2: short name
+task_id_pattern = '\d+\.\d+[a-z]?'
+
+[commits]
+exempt_prefixes = ["Merge ", 'Revert "', "fixup! ", "squash! ", "amend! "]
+docs_only_plans_exempt = true   # a docs: commit that only edits plans needs no id
+
+[migrations]
+dirs = []                        # e.g. ["db/migrations"]; empty turns the check off
+pattern = '^(\d+)_.+\.sql$'
+
+[watch]
+# "main changed" notice in Claude Code: a quick fetch at most this often
+fetch = true
+every_minutes = 10
