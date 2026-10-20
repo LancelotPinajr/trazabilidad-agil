@@ -33,6 +33,13 @@ docs_only_plans_exempt = true   # a docs: commit that only edits plans needs no 
 dirs = []                        # e.g. ["db/migrations"]; empty turns the check off
 pattern = '^(\\d+)_.+\\.sql$'
 
+[dora]
+# What counts as a deploy, for deployment frequency and lead time:
+#   "merge" into the main branch (the default), "tag", or commits touching "paths"
+release = "merge"
+tag_pattern = '^v'
+paths = []                       # e.g. ["backend"], with release = "paths"
+
 [watch]
 # "main changed" notice in Claude Code: a quick fetch at most this often
 fetch = true
@@ -56,6 +63,13 @@ docs_only_plans_exempt = true   # un commit docs: que solo edita planes no neces
 [migrations]
 dirs = []                        # p. ej. ["db/migrations"]; vacío apaga el chequeo
 pattern = '^(\\d+)_.+\\.sql$'
+
+[dora]
+# Qué cuenta como un despliegue, para frecuencia de despliegue y tiempo de entrega:
+#   "merge" a la rama principal (el valor por omisión), "tag", o commits que tocan "paths"
+release = "merge"
+tag_pattern = '^v'
+paths = []                       # p. ej. ["backend"], con release = "paths"
 
 [watch]
 # aviso «cambió main» en Claude Code: un fetch rápido como mucho con esta frecuencia

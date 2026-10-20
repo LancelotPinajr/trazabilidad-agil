@@ -9,10 +9,12 @@ Command line:
     python -m trazabilidad report [--out trazabilidad-report.html] [--weeks 26]
     python -m trazabilidad plans                                         # plans, epics and next free ids (JSON)
     python -m trazabilidad watch                                         # Claude Code UserPromptSubmit hook
+    python -m trazabilidad dora [--weeks 12]                             # delivery metrics (JSON)
 """
 from __future__ import annotations
 
 import argparse
+import json
 import os
 import subprocess
 import sys
@@ -22,6 +24,7 @@ from .config import CONFIG_FILE
 from .commits import check_message, load_plans
 from .init_repo import init
 from .messages import t
+from .dora import summary as dora_summary
 from .plans import plans_json
 from .report import write_report
 from .migrations import is_migration, repeated_numbers, touched_migrations
@@ -131,6 +134,8 @@ def main(argv: list[str] | None = None) -> int:
     sub.add_parser("session", help="Claude Code SessionStart notice (JSON)")
     sub.add_parser("plans", help="plans, epics and next free ids, as JSON")
     sub.add_parser("watch", help="notice when the main branch changed (hook JSON)")
+    p_dora = sub.add_parser("dora", help="deployment frequency and lead time, as JSON")
+    p_dora.add_argument("--weeks", type=int, default=12)
     p_report = sub.add_parser("report", help="HTML report with charts, computed locally")
     p_report.add_argument("--out", default="trazabilidad-report.html")
     p_report.add_argument("--weeks", type=int, default=26)
@@ -144,6 +149,9 @@ def main(argv: list[str] | None = None) -> int:
         return cmd_check_message(cfg, args.message) if args.message else cmd_check_range(cfg, args.range)
     if args.command == "check-migrations":
         return cmd_check_migrations(cfg, args.base)
+    if args.command == "dora":
+        print(json.dumps(dora_summary(cfg, args.weeks), indent=2))
+        return 0
     if args.command == "plans":
         print(plans_json(cfg))
         return 0

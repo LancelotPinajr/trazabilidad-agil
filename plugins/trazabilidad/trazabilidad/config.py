@@ -31,6 +31,11 @@ class Config:
     docs_only_plans_exempt: bool = True
     migration_dirs: list[str] = field(default_factory=list)
     migration_pattern: str = r"^(\d+)_.+\.sql$"
+    # What counts as a deploy: "merge" into the main branch, "tag", or commits
+    # touching "paths". Deployment frequency and lead time are read from it.
+    dora_release: str = "merge"
+    dora_tag_pattern: str = r"^v"
+    dora_paths: list[str] = field(default_factory=list)
     # «The main branch changed» notice: fetch at most this often, never on every prompt.
     watch_fetch: bool = True
     watch_every_minutes: int = 10
@@ -59,6 +64,10 @@ def load(root: str) -> Config:
     migrations = data.get("migrations", {})
     config.migration_dirs = [d.rstrip("/") for d in migrations.get("dirs", config.migration_dirs)]
     config.migration_pattern = migrations.get("pattern", config.migration_pattern)
+    dora = data.get("dora", {})
+    config.dora_release = dora.get("release", config.dora_release)
+    config.dora_tag_pattern = dora.get("tag_pattern", config.dora_tag_pattern)
+    config.dora_paths = [p.rstrip("/") for p in dora.get("paths", config.dora_paths)]
     watch = data.get("watch", {})
     config.watch_fetch = watch.get("fetch", config.watch_fetch)
     config.watch_every_minutes = watch.get("every_minutes", config.watch_every_minutes)
