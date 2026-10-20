@@ -16,7 +16,7 @@ Cite these tasks as `01/1.2`, `01/3.1`…
 | D2 | What counts as a deploy is configurable, because it differs per repo: a merge into the main branch, a tag, or commits touching given paths. Default: a merge into the main branch | ✅ |
 | D3 | Change failure rate and time to restore need incidents to be recorded. Until a repository records them, both say "not enough data" and name what is missing. **No proxy is shown as if it were the metric** | ⬜ |
 | D4 | The panel is optional. The plugin keeps working without it, and a surface that cannot draw a panel falls back to the report | ⬜ |
-| D5 | Whether the panel needs a minimum Claude Code version, and what the plugin does on older ones | ⬜ |
+| D5 | Whether the panel needs a minimum Claude Code version, and what the plugin does on older ones | 🟡 the panel is a hooks module (TypeScript) beside the Python checks; whether both ship in one plugin is open |
 
 ## Epic 1 — Delivery, from git alone
 
@@ -40,10 +40,10 @@ Cite these tasks as `01/1.2`, `01/3.1`…
 
 | # | Task | Acceptance criterion | Status |
 |---|---|---|---|
-| 3.1 | Open and close it | `/trazabilidad:panel` opens a panel titled with the repository; running it again closes it | ⬜ |
-| 3.2 | What it shows | Branch and how far behind the main branch; tasks in progress; the four DORA numbers, each with its `n` or its "not enough data" | ⬜ |
-| 3.3 | It never slows the session | Numbers are computed off the prompt path and cached; recomputed at most every few minutes and when a commit lands | ⬜ |
-| 3.4 | Degrades without drama | Where no panel can be drawn, the command says so and points to `report`; the rest of the plugin is unaffected (D4) | ⬜ |
+| 3.1 | Open and close it | `/trazabilidad:panel` opens a panel titled with the repository; running it again closes it | 🟡 built as a dev mod (`~/.claude/dev-mods/<session>/trazabilidad-panel`); opens, but closing by running it again is not done |
+| 3.2 | What it shows | Branch and how far behind the main branch; tasks in progress; the four DORA numbers, each with its `n` or its "not enough data" | 🟡 written; pending its first draw on screen |
+| 3.3 | It never slows the session | Numbers are computed off the prompt path and cached; recomputed at most every few minutes and when a commit lands | 🟡 cached for 5 min and refreshed beside the prompt, never before it; "when a commit lands" is not done |
+| 3.4 | Degrades without drama | Where no panel can be drawn, the command says so and points to `report`; the rest of the plugin is unaffected (D4) | 🟡 written (`isPlaced` is checked); not seen on a surface that refuses the panel |
 | 3.5 | Readable in both themes | Light and dark, and at a narrow width, without truncated numbers | ⬜ |
 
 ## Epic 4 — The same numbers in the report
