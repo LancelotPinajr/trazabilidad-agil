@@ -13,7 +13,7 @@ Cite these tasks as `01/1.2`, `01/3.1`…
 | # | Decision | Status |
 |---|---|---|
 | D1 | Git is the only source. No deployment API, no tracker, no account: whatever cannot be derived from the repository is reported as missing, not guessed | ✅ |
-| D2 | What counts as a deploy is configurable, because it differs per repo: a merge into the main branch, a tag, or commits touching given paths. Default: a merge into the main branch | ⬜ |
+| D2 | What counts as a deploy is configurable, because it differs per repo: a merge into the main branch, a tag, or commits touching given paths. Default: a merge into the main branch | ✅ |
 | D3 | Change failure rate and time to restore need incidents to be recorded. Until a repository records them, both say "not enough data" and name what is missing. **No proxy is shown as if it were the metric** | ⬜ |
 | D4 | The panel is optional. The plugin keeps working without it, and a surface that cannot draw a panel falls back to the report | ⬜ |
 | D5 | Whether the panel needs a minimum Claude Code version, and what the plugin does on older ones | ⬜ |
@@ -22,10 +22,10 @@ Cite these tasks as `01/1.2`, `01/3.1`…
 
 | # | Task | Acceptance criterion | Status |
 |---|---|---|---|
-| 1.1 | What counts as a deploy | `[dora]` in `.trazabilidad.toml` picks merge, tag or paths (D2); the demo repo counts the same deploys a human counts by hand | ⬜ |
-| 1.2 | Deployment frequency | Deploys per week for the last N weeks, plus the median gap between them; `--weeks` respected | ⬜ |
-| 1.3 | Lead time for changes | From a change's first commit to the deploy that carried it: median and p90, always with `n`; under 3 it says there isn't enough to read | ⬜ |
-| 1.4 | Works on a repo without merges | A repo that commits straight to the main branch gets numbers too, or a clear reason why not | ⬜ |
+| 1.1 | What counts as a deploy | `[dora]` in `.trazabilidad.toml` picks merge, tag or paths (D2); the demo repo counts the same deploys a human counts by hand | 🟡 the three modes work and are tested; not checked on the demo repo yet |
+| 1.2 | Deployment frequency | Deploys per week for the last N weeks, plus the median gap between them; `--weeks` respected | ✅ `python -m trazabilidad dora` |
+| 1.3 | Lead time for changes | From a change's first commit to the deploy that carried it: median and p90, always with `n`; under 3 it says there isn't enough to read | ✅ |
+| 1.4 | Works on a repo without merges | A repo that commits straight to the main branch gets numbers too, or a clear reason why not | 🟡 it says what to configure; tags and paths cover the case |
 
 ## Epic 2 — Incidents, the two metrics git can't see
 
