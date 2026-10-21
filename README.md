@@ -28,6 +28,7 @@ feat(auth): lock the account after 5 failed attempts (01/2.3)
 | **`/trazabilidad:start-session 01/2.3`** (Claude Code) | Checks the branch, reads the task and its acceptance criterion from the plan, marks it in progress and pins the id for the session's commits. |
 | **`/trazabilidad:add-to-plan`** (Claude Code) | Mid-session, when there's work that no task covers: it reads the conversation (and your uncommitted diff), finds the tasks that already cover it, and proposes new rows (next free id, title, checkable acceptance criterion, status) or a new plan. **It writes only after you say yes**, commits just the plan, and gives you the ids to cite. |
 | **`/trazabilidad:end-session`** (Claude Code) | Checks ids, migrations and tests, and records each task's status in its plan. A task is done only when its criterion was verified: **a commit does not close a task**. |
+| **`/trazabilidad:owner-board`** (Claude Code and Claude app Artifacts) | Builds a person's to-do board from the plan rows that depend on them, and reads it back to update the plan. A ticked box **does not close** the task. See [Several chats](#several-chats-code-to-dos-and-intake). |
 
 ## The report
 
@@ -165,9 +166,10 @@ This is how CØRD uses the package, in the Claude app:
 6. **Each board is private** to whoever creates it, unless they share it.
 
 **How it is built.** Each board is a Claude app Artifact with storage (`db`, and
-`assets` for photos). You ask in words: "build the to-do board from the plan rows
-that depend on me". The plugin does not generate them on its own: they are Claude
-app pages, not part of this package.
+`assets` for photos). You ask with `/trazabilidad:owner-board` or in words: "build
+the to-do board from the plan rows that depend on me". The skill tells Claude how
+to build it and how to read it back; the boards themselves are Claude app pages,
+so the app is required. The package installs nothing that runs on its own.
 
 **Example.** Rick, CØRD's sales agent: one board with 16 to-dos in 4 groups, and
 another where the owner uploads each product's photo, features and price, which

@@ -28,6 +28,7 @@ feat(auth): bloquear la cuenta tras 5 intentos fallidos (01/2.3)
 | **`/trazabilidad:start-session 01/2.3`** (Claude Code) | Revisa la rama, lee la tarea y su criterio de aceptación en el plan, la marca en curso y fija el id para los commits de la sesión. |
 | **`/trazabilidad:add-to-plan`** (Claude Code) | A media sesión, cuando hay trabajo que ninguna tarea cubre: lee la conversación (y tus cambios sin commit), encuentra las tareas que ya lo cubren y propone filas nuevas (siguiente id libre, título, criterio de aceptación verificable, estado) o un plan nuevo. **Solo escribe después de tu sí**, hace commit solo del plan y te da los ids para citar. |
 | **`/trazabilidad:end-session`** (Claude Code) | Revisa ids, migraciones y pruebas, y deja el estado de cada tarea en su plan. Una tarea se da por hecha solo si su criterio se verificó: **un commit no cierra una tarea**. |
+| **`/trazabilidad:owner-board`** (Claude Code y Artifacts de la app de Claude) | Arma el tablero de pendientes de una persona con las filas del plan que dependen de ella, y lo lee de vuelta para actualizar el plan. Una casilla marcada **no cierra** la tarea. Ver [Varios chats](#varios-chats-código-pendientes-y-captura). |
 
 Los comandos tienen nombre en inglés, pero Claude responde en el idioma en que
 le escribas, y los mensajes de los chequeos salen en español con
@@ -171,9 +172,11 @@ es la forma de trabajo con la que CØRD usa el paquete, en la app de Claude:
 6. **Cada tablero es privado** de quien lo crea, salvo que lo comparta.
 
 **Cómo se arma.** Cada tablero es un Artifact de la app de Claude con
-almacenamiento (`db`, y `assets` para las fotos). Se pide en palabras: «arma el
-tablero de pendientes con las filas del plan que dependen de mí». El plugin no
-los genera por sí solo: son páginas de la app de Claude, no parte de este paquete.
+almacenamiento (`db`, y `assets` para las fotos). Se pide con
+`/trazabilidad:owner-board` o en palabras: «arma el tablero de pendientes con las
+filas del plan que dependen de mí». La skill le dice a Claude cómo armarlo y cómo
+leerlo de vuelta; los tableros mismos son páginas de la app de Claude, así que
+hace falta esa app. El paquete no instala nada que corra por su cuenta.
 
 **Ejemplo.** Rick, el agente comercial de CØRD: un tablero con 16 pendientes en 4
 bloques, y otro donde el dueño sube foto, características y precio de cada
